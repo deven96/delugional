@@ -3,7 +3,7 @@ use k8s_openapi::api::core::v1::Event;
 use kube::{
     api::{Api, ListParams},
     runtime::{watcher, WatchStreamExt},
-    client::Client,
+    Client
 };
 use tracing::*;
 
@@ -27,10 +27,11 @@ async fn main() -> anyhow::Result<()> {
 // This function lets the app handle an added/modified event from k8s
 fn handle_event(ev: Event) -> anyhow::Result<()> {
     info!(
-        "Event: \"{}\" via {} {}",
-        ev.message.unwrap().trim(),
+        "Event: \"{:?}\" via {} {} -> Namespace {:?}",
+        ev.message,
         ev.involved_object.kind.unwrap(),
-        ev.involved_object.name.unwrap()
+        ev.involved_object.name.unwrap(),
+        ev.involved_object.namespace,
     );
     Ok(())
 }

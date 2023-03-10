@@ -3,7 +3,7 @@ use k8s_openapi::api::core::v1::Event;
 use kube::{
     api::{Api, ListParams},
     runtime::{watcher, WatchStreamExt},
-    Client
+    Client,
 };
 use tracing::*;
 
